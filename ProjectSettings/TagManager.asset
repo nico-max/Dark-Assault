@@ -8,6 +8,8 @@ TagManager:
   - Floor
   - FaroLuz
   - HaloLuz
+  - Checkpoint
+  - EntradaCheckpoint
   layers:
   - Default
   - TransparentFX

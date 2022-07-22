@@ -11,12 +11,19 @@ public class Faro : MonoBehaviour
 
     public float reductionSpeed;
 
+    private Vector3 inicio;
+    private Animator anim;
+
 
     void Start()
     {
         luzFaro = GetComponentInChildren<Light>();
         reductionSpeed = 1;
-        
+
+        inicio = transform.position;
+
+        anim = GetComponent<Animator>();
+
     }
     
     void Update()
@@ -38,6 +45,17 @@ public class Faro : MonoBehaviour
 
         deteccion.localScale = new Vector3(nuevoRadio, 6, nuevoRadio);
         luzFaro.spotAngle = halo;
+    }
+
+    public void Respawn()
+    {
+        transform.position = inicio;
+        anim.SetBool("iniciar", false);
+    }
+
+    public void iniciarNivel()
+    {
+        anim.SetBool("iniciar", true);
     }
 
 }

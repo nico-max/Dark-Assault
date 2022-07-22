@@ -84,12 +84,12 @@ public class Linterna : MonoBehaviour
 
     void configHighBattery()
     {
-        luz.range = 150;
+        luz.range = 100;
     }
 
     void configMidBattery()
     {
-        luz.range = 120;
+        luz.range = 80;
     }
 
     void configLowBattery()
@@ -105,7 +105,7 @@ public class Linterna : MonoBehaviour
 
             if(num>40)
             {
-                luz.range = 120;
+                luz.range = 80;
             }
             else
             {
