@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207187771257244547}
   - component: {fileID: 207187771257244546}
+  - component: {fileID: 63836401}
   m_Layer: 0
   m_Name: Faro
   m_TagString: FaroLuz
@@ -49,6 +50,27 @@ MonoBehaviour:
   deteccion: {fileID: 207187772469284947}
   reducir: 0
   reductionSpeed: 0
+  rangoMaximo: 100
+--- !u!95 &63836401
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207187771257244548}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c8d2b0b589f36164ea90d223d6dcbec9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &207187772249457771
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +114,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9691824, b: 0.7688679, a: 1}
+  m_Color: {r: 1, g: 0.96862745, b: 0.76862746, a: 1}
   m_Intensity: 26
   m_Range: 100
   m_SpotAngle: 100
@@ -155,6 +177,7 @@ GameObject:
   - component: {fileID: 207187772469284944}
   - component: {fileID: 207187772469284945}
   - component: {fileID: 207187772469284946}
+  - component: {fileID: 465105589}
   m_Layer: 0
   m_Name: deteccionLuz
   m_TagString: HaloLuz
@@ -241,3 +264,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &465105589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207187772469284948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480ae7504bd6e6144b9c5dffe7dbb65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faroPadre: {fileID: 0}

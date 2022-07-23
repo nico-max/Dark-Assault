@@ -10,6 +10,7 @@ public class Faro : MonoBehaviour
     public bool reducir;
 
     public float reductionSpeed;
+    public float rangoMaximo = 100f;
 
     private Vector3 inicio;
     private Animator anim;
@@ -56,6 +57,26 @@ public class Faro : MonoBehaviour
     public void iniciarNivel()
     {
         anim.SetBool("iniciar", true);
+    }
+
+    public void Encender()
+    {
+        luzFaro.range = rangoMaximo;
+    }
+
+    public void Apagar()
+    {
+        luzFaro.range = 0;
+    }
+
+    public void AlertaEnemigo()
+    {
+        anim.SetBool("enemigoDentro", true);
+    }
+
+    public void EnemigoSalio()
+    {
+        anim.SetBool("enemigoDentro", false);
     }
 
 }

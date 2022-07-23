@@ -57,7 +57,7 @@ public class Linterna : MonoBehaviour
                 break;
         }
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             luz.enabled = !luz.enabled;
             encendida = !encendida;
