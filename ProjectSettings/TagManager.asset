@@ -10,6 +10,7 @@ TagManager:
   - HaloLuz
   - Checkpoint
   - EntradaCheckpoint
+  - Linterna
   layers:
   - Default
   - TransparentFX
