@@ -10,6 +10,8 @@ public class Faro : MonoBehaviour
     public bool reducir;
 
     public float reductionSpeed;
+    public float rangoMaximo = 100f;
+    public float radioMaximo = 50f;
 
     private Vector3 inicio;
     private Animator anim;
@@ -41,7 +43,7 @@ public class Faro : MonoBehaviour
 
         halo -= Time.deltaTime * reductionSpeed;
 
-        float nuevoRadio = (halo * 70) / 100;
+        float nuevoRadio = (halo * 50) / 100;
 
         deteccion.localScale = new Vector3(nuevoRadio, 6, nuevoRadio);
         luzFaro.spotAngle = halo;
@@ -51,11 +53,37 @@ public class Faro : MonoBehaviour
     {
         transform.position = inicio;
         anim.SetBool("iniciar", false);
+        anim.SetBool("enemigoDentro", false);
+
+        deteccion.localScale = new Vector3(radioMaximo, 6, radioMaximo);
+        luzFaro.spotAngle = rangoMaximo;
     }
 
     public void iniciarNivel()
     {
         anim.SetBool("iniciar", true);
+    }
+
+    public void Encender()
+    {
+        luzFaro.range = rangoMaximo;
+    }
+
+    public void Apagar()
+    {
+        luzFaro.range = 0;
+    }
+
+    public void AlertaEnemigo()
+    {
+        anim.SetBool("enemigoDentro", true);
+        reducir = true;
+    }
+
+    public void EnemigoSalio()
+    {
+        anim.SetBool("enemigoDentro", false);
+        reducir = false;
     }
 
 }

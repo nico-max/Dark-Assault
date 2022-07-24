@@ -9,10 +9,15 @@ public class RespawnFaro : MonoBehaviour
     float tiempoInicio = .5f;
     bool iniciado;
 
+    [SerializeField]
+    private Faro faroPadre;
+
     void Start()
     {
         counter = 0f;
         iniciado = false;
+
+        faroPadre = GetComponentInParent<Faro>();
     }
 
     // Update is called once per frame
@@ -20,26 +25,38 @@ public class RespawnFaro : MonoBehaviour
     {
         if(counter>=tiempoInicio && !iniciado)
         {
-            GetComponentInParent<Faro>().iniciarNivel();
+            faroPadre.iniciarNivel();
             iniciado = true;
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.tag == "Player" && counter < tiempoInicio)
+        if (other.gameObject.tag == "EnemigoMortal")
+        {
+            faroPadre.AlertaEnemigo();
+        }
+
+        if (other.gameObject.tag == "Player" && counter < tiempoInicio)
         {
             counter += Time.deltaTime;
         }
+        //Debug.Log(other.gameObject.tag);
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            GetComponentInParent<Faro>().Respawn();
+            faroPadre.Respawn();
             iniciado = false;
             counter = 0;
+        }
+        
+        if(other.gameObject.tag == "EnemigoMortal")
+        {
+            faroPadre.EnemigoSalio();
         }
     }
 }

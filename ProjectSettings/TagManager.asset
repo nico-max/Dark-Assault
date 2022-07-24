@@ -10,7 +10,8 @@ TagManager:
   - HaloLuz
   - Checkpoint
   - EntradaCheckpoint
-  - Linterna
+  - EnemigoMortal
+  - EnemigoAtormentador
   layers:
   - Default
   - TransparentFX
