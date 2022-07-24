@@ -15,7 +15,14 @@ public class DesactivarNivel : MonoBehaviour
     {
         
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnemigoMortal")
+        {
+            GetComponent<BoxCollider>().isTrigger = true;
+        }
+    }
+    
     private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -23,6 +30,11 @@ public class DesactivarNivel : MonoBehaviour
             GetComponent<BoxCollider>().isTrigger = false;
 
             GameManager._instance.superoNivel();
+        }
+
+        if(other.gameObject.tag == "EnemigoMortal")
+        {
+            GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 }

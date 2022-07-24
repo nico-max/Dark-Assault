@@ -15,12 +15,14 @@ public class Jugador : MonoBehaviour
     public float fuerzaSalto;
 
     private Vector3 spawnpoint;
+    private Vector3 posInicial;
     [SerializeField]
     private Transform enemigoMortal;
 
     private Rigidbody rig;
     private Transform cam;
     private AudioSource heart;
+    public AudioSource foots;
 
     public bool insideLight;
     public bool tocandoPiso;
@@ -32,6 +34,7 @@ public class Jugador : MonoBehaviour
         rangoRayo = 100f;
 
         spawnpoint = transform.position;
+        posInicial = transform.position;
         insideLight = false;
         rig = GetComponent<Rigidbody>();
         cam = GetComponentInChildren<Camera>().transform;
@@ -53,12 +56,16 @@ public class Jugador : MonoBehaviour
 
         Jump();
         Latidos();
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            GameManager._instance.activarMortal();
+        }
     }
 
     private void FixedUpdate()
     {
         Move();
-        
     }
 
     void Move()
@@ -76,6 +83,11 @@ public class Jugador : MonoBehaviour
         if(inputPlayer != Vector3.zero)
         {
             velocity = inputPlayer * velocidadMovimiento;
+            foots.UnPause();
+        }
+        else if(inputPlayer == Vector3.zero)
+        {
+            foots.Pause();
         }
 
         velocity.y = rig.velocity.y;
@@ -133,6 +145,13 @@ public class Jugador : MonoBehaviour
             spawnpoint = new Vector3(col.position.x, transform.position.y, col.position.z);
         }
 
+        if (collision.gameObject.tag == "EnemigoMortal")
+        {
+            insideLight = false;
+            spawnpoint = posInicial;
+            GameManager._instance.reiniciarNivel();
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -167,33 +186,41 @@ public class Jugador : MonoBehaviour
         float distancia = (enemigoMortal.position - transform.position).magnitude;
 
         //Debug.Log(hit.transform.gameObject.name);
-        Debug.Log(distancia);
+        //Debug.Log(distancia);
 
-
-        if (distancia>200f)
+        if(enemigoMortal.gameObject.activeInHierarchy)
         {
-            heart.pitch = 0.75f;
-        }
-        else if (distancia >= 150f)
-        {
-            heart.pitch = 1;
-        }
-        else if (distancia >=100f)
-        {
-            heart.pitch = 1.25f;
-        }
-        else if (distancia >= 50f)
-        {
-            heart.pitch = 1.5f;
-        }
-        else if (distancia >= 25f)
-        {
-            heart.pitch = 1.75f;
+            if (distancia > 200f)
+            {
+                heart.pitch = 0.75f;
+            }
+            else if (distancia >= 150f)
+            {
+                heart.pitch = 1;
+            }
+            else if (distancia >= 100f)
+            {
+                heart.pitch = 1.25f;
+            }
+            else if (distancia >= 50f)
+            {
+                heart.pitch = 1.5f;
+            }
+            else if (distancia >= 25f)
+            {
+                heart.pitch = 1.75f;
+            }
+            else
+            {
+                heart.pitch = 2;
+            }
         }
         else
         {
-            heart.pitch = 2;
+            heart.pitch = 0.75f;
         }
         
+        
     }
+
 }

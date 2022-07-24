@@ -5,6 +5,7 @@ using UnityEngine;
 public class Linterna : MonoBehaviour
 {
     private Light luz;
+    private Camera playerCam;
 
     public float bateria;
     public bool encendida;
@@ -27,9 +28,12 @@ public class Linterna : MonoBehaviour
     void Start()
     {
         luz = GetComponent<Light>();
-        luz.enabled = false; 
+        luz.enabled = false;
+        lightRange = luz.range;
         encendida = false;
         bateria = 100;
+
+        playerCam = GetComponentInParent<Camera>();
     }
 
     // Update is called once per frame
@@ -57,7 +61,30 @@ public class Linterna : MonoBehaviour
                 break;
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        ControlLuzLinterna();
+
+        deteccionLuzLinterna();
+    }
+
+    void deteccionLuzLinterna()
+    {
+        if(encendida && bateria>0)
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange))
+            {
+                if(hit.transform.gameObject.tag == "EnemigoAtormentador")
+                {
+                    Debug.Log("Enemigo hiteado");//hit.transform.gameObject.GetComponent<TormentEnemy>().Impacto();
+                    Destroy(hit.transform.gameObject);
+                }
+            }
+        }
+    }
+
+    void ControlLuzLinterna()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             luz.enabled = !luz.enabled;
             encendida = !encendida;

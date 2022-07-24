@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +9,13 @@ public class GameManager : MonoBehaviour
     public GameObject[] faros;
 
     public GameObject faroActivo;
+
+    private Transform posJugador;
+    private Transform posEnemigoMortal;
+
+    [SerializeField]
+    private Vector3 posInicialJugador;
+    private Vector3 posInicialEnemigoMortal;
 
     void Awake()
     {
@@ -26,9 +31,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _instance.level = 0;
+        level = 0;
         //_instance.faros = new GameObject[3];
-        _instance.faroActivo = faros[level];
+        faroActivo = faros[level];
+
+        posJugador = GameObject.FindGameObjectWithTag("Player").transform;
+        posEnemigoMortal = GameObject.FindGameObjectWithTag("EnemigoMortal").transform;
+
+        posInicialJugador = _instance.posJugador.position;
+        posInicialEnemigoMortal = _instance.posEnemigoMortal.position;
+
+        posEnemigoMortal.gameObject.SetActive(false);
     }
 
 
@@ -40,5 +53,34 @@ public class GameManager : MonoBehaviour
         faroActivo = faros[level];
         //Debug.Log("Faro activo a encender: " + faroActivo.name);
         faroActivo.GetComponent<Faro>().Encender();
+
+        if(level==2)
+        {
+            activarMortal();
+        }
+    }
+
+    public void activarMortal()
+    {
+        posEnemigoMortal.gameObject.SetActive(true);
+    }
+
+    public void reiniciarNivel()
+    {
+        posJugador.position = posInicialJugador;
+        posEnemigoMortal.position = posInicialEnemigoMortal;
+
+        foreach(GameObject faro in faros)
+        {
+            faro.GetComponent<Faro>().Respawn();
+            faro.GetComponent<Faro>().Apagar();
+        }
+
+        level = 0;
+        faroActivo = faros[level];
+        faroActivo.GetComponent<Faro>().Encender();
+
+        posEnemigoMortal.gameObject.SetActive(false);
+
     }
 }

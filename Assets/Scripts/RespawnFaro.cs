@@ -41,7 +41,7 @@ public class RespawnFaro : MonoBehaviour
         {
             counter += Time.deltaTime;
         }
-        Debug.Log(other.gameObject.tag);
+        //Debug.Log(other.gameObject.tag);
         
     }
 
