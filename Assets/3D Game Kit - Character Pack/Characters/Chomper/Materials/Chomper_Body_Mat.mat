@@ -113,7 +113,7 @@ Material:
     - _Glossiness: 1
     - _GlossyReflections: 1
     - _MaxDiff: 0.107
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _NoiseAmount: 0.4
     - _NoiseStrength: 0.087

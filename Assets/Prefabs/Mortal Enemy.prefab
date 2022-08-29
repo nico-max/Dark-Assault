@@ -679,9 +679,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2601070904088604441}
   - component: {fileID: 2389853281330126495}
+  - component: {fileID: 6749314087048584116}
   m_Layer: 0
   m_Name: Ch30
-  m_TagString: Untagged
+  m_TagString: EnemigoMortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -807,6 +808,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.009341747, y: 0.044017106, z: 0.21483973}
     m_Extent: {x: 0.62755084, y: 0.7737589, z: 0.4368681}
   m_DirtyAABB: 0
+--- !u!136 &6749314087048584116
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293606839504112089}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.34
+  m_Height: 1.49
+  m_Direction: 2
+  m_Center: {x: -0.034975, y: 0.34266895, z: 0.05057095}
 --- !u!1 &3398305180062700160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,9 +2081,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9095024047357089594}
   - component: {fileID: 8769279591421684722}
-  - component: {fileID: 8769279591421684733}
   - component: {fileID: 8769279591421684723}
   - component: {fileID: 8769279591421684732}
+  - component: {fileID: 919132148302526763}
   m_Layer: 0
   m_Name: Mortal Enemy
   m_TagString: EnemigoMortal
@@ -2109,20 +2124,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!136 &8769279591421684733
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8463341781263224192}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.66
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &8769279591421684723
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2239,6 +2240,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &919132148302526763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463341781263224192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d073ca10f4ede1544a4760555a66f9e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Jugador: {fileID: 0}
+  speedMovement: 10
 --- !u!1 &8554514714918088411
 GameObject:
   m_ObjectHideFlags: 0

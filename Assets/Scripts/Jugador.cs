@@ -124,7 +124,6 @@ public class Jugador : MonoBehaviour
 
         if(Physics.Raycast(transform.position, Vector3.down, out hit, rangoRayo))
         {
-            
             if(hit.distance <= 2.5f)
             {
                 tocandoPiso = true;
@@ -151,7 +150,11 @@ public class Jugador : MonoBehaviour
             spawnpoint = posInicial;
             GameManager._instance.reiniciarNivel();
         }
-
+        else if(collision.gameObject.tag == "EnemigoAtormentador")
+        {
+            insideLight = false;
+            GameManager._instance.reiniciarNivel();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -173,7 +176,7 @@ public class Jugador : MonoBehaviour
             Respawn();
         }
     }
-    
+
 
     void Respawn()
     {
@@ -190,34 +193,43 @@ public class Jugador : MonoBehaviour
 
         if(enemigoMortal.gameObject.activeInHierarchy)
         {
+            // Configuraciones dependiendo de la distancia del enemigo mortal
             if (distancia > 200f)
             {
                 heart.pitch = 0.75f;
+                heart.volume = 0.3f;
             }
             else if (distancia >= 150f)
             {
                 heart.pitch = 1;
+                heart.volume = 0.7f;
             }
             else if (distancia >= 100f)
             {
                 heart.pitch = 1.25f;
+                heart.volume = 0.7f;
             }
             else if (distancia >= 50f)
             {
                 heart.pitch = 1.5f;
+                heart.volume = 0.7f;
             }
             else if (distancia >= 25f)
             {
                 heart.pitch = 1.75f;
+                heart.volume = 0.7f;
             }
             else
             {
                 heart.pitch = 2;
+                heart.volume = 0.75f;
             }
         }
         else
         {
+            // Configuracion de volumen y velocidad default
             heart.pitch = 0.75f;
+            heart.volume = 0.3f;
         }
         
         

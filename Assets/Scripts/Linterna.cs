@@ -6,6 +6,8 @@ public class Linterna : MonoBehaviour
 {
     private Light luz;
     private Camera playerCam;
+    private Animator anim;
+    private AudioSource sound;
 
     public float bateria;
     public bool encendida;
@@ -34,6 +36,8 @@ public class Linterna : MonoBehaviour
         bateria = 100;
 
         playerCam = GetComponentInParent<Camera>();
+        anim = GetComponent<Animator>();
+        sound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,8 +79,7 @@ public class Linterna : MonoBehaviour
             {
                 if(hit.transform.gameObject.tag == "EnemigoAtormentador")
                 {
-                    Debug.Log("Enemigo hiteado");//hit.transform.gameObject.GetComponent<TormentEnemy>().Impacto();
-                    Destroy(hit.transform.gameObject);
+                    hit.transform.gameObject.GetComponent<EnemigoTormentoso>().Impacto();
                 }
             }
         }
@@ -88,7 +91,22 @@ public class Linterna : MonoBehaviour
         {
             luz.enabled = !luz.enabled;
             encendida = !encendida;
+
+
         }
+        else if (encendida && bateria>10 && Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            activarAnimator();
+            anim.SetTrigger("flash");
+            sound.Play();
+            bateria -= 10;
+            Invoke("activarAnimator", .35f);
+        }
+    }
+
+    void activarAnimator()
+    {
+        anim.enabled = !anim.enabled;
     }
 
     void cargar()

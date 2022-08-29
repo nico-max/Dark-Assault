@@ -17,13 +17,16 @@ También se contará con enemigos en el mapa, específicamente dos tipos de enem
 El primero, un enemigo mortal el cual seguirá al jugador todo el tiempo a lo largo de los diversos niveles y habitaciones. Este enemigo tendrá dos efectos importantes en cada intento. En primer lugar, si el enemigo toca directamente al jugador, será GameOver para el mismo, pero en este caso lo devolverá al comienzo del nivel, no al ultimo checkpoint. Por otro lado, el radio de la luz del faro en el que se encuentra el jugador es vital para este, y si este enemigo entra dentro de la luz, esta comenzara a reducirce, volviendose cada segundo que pase el enemigo mortal dentro, cada vez mas pequeña. 
 
 (En desarrollo)
-El segundo tipo de enemigo sera uno que puede aparecer en gran numero a lo largo de cada habitacion. Estos seran enemigos que atormentaran al jugador a lo largo del nivel. Mientras el jugador avanza con la luz, estos enemigos pueden aparecer alrededor desde la oscuridad, generando un sonido que alerte al jugador de su presencia. Estos enemigos desapareceran al ser apuntados con la linterna. Sin embargo, si no se reacciona velozmente a ellos, pueden generar por probabilidad dos calses de efectos: el primero sera un pequeño 'stun' o aturdimiento, que dejara al jugador incapacitado por un breve periodo de tiempo. El segundo, una reducción porcentual del halo de luz en el que se encuentra. 
+El segundo tipo de enemigo sera uno que puede aparecer en gran numero a lo largo de cada habitacion. Estos seran enemigos que atormentaran al jugador a lo largo del nivel. Mientras el jugador avanza con la luz, estos enemigos pueden aparecer alrededor desde la oscuridad, generando un sonido que alerte al jugador de su presencia. Estos enemigos desapareceran al ser apuntados con la linterna. Sin embargo, si no se reacciona velozmente a ellos, pueden generar por probabilidad dos clases de efectos: el primero sera un pequeño 'stun' o aturdimiento, que dejara al jugador incapacitado por un breve periodo de tiempo. El segundo, una reducción porcentual del halo de luz en el que se encuentra. 
 
 El objetivo final del jugador será escapar de este extraño mundo superando los diferentes circuitos que se le presentan y, claro esta, no dejar que lo atrape este enemigo mortal.
 
 ## Controls
 
 Movimiento - WASD
+
 Salto - Space
+
 Encender/Apagar Linterna - Left Click
+
 Super-destello - Right Click

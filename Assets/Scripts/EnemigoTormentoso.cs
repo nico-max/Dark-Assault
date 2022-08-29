@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemigoTormentoso : MonoBehaviour
+{
+    public Transform posJugador;
+    public float enemySpeed;
+    public float range;
+
+    [SerializeField]
+    private Animator anim;
+
+    public float counterVida;
+    public float vidaMaxima;
+
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        counterVida = 0;
+        vidaMaxima = 1.3f;
+        enemySpeed = 12;
+    }
+
+    void Update()
+    {
+        ChequearDistancia();
+        LookAtPlayerQuat();
+
+        if(counterVida >= vidaMaxima)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    void ChequearDistancia()
+    {
+        if (Vector3.Distance(posJugador.position, transform.position) <= range)
+        {
+            anim.SetBool("atacar", true);
+        }
+        else
+        {
+            anim.SetBool("atacar", false);
+            SeguirAlJugador();
+        }
+    }
+
+    void SeguirAlJugador()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, posJugador.position, enemySpeed * Time.deltaTime);
+    }
+    void LookAtPlayerQuat()
+    {
+        Quaternion rot = Quaternion.LookRotation(posJugador.position - transform.position);
+        transform.rotation = rot;
+
+    }
+
+    public void Impacto()
+    {
+        counterVida += Time.deltaTime;
+    }
+}
