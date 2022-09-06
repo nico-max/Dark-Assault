@@ -45,6 +45,7 @@ public class Linterna : MonoBehaviour
     {
         verificarBateria();
         descargar();
+        cargar();
 
         switch (comportamientoLuz)
         {
@@ -75,6 +76,7 @@ public class Linterna : MonoBehaviour
         if(encendida && bateria>0)
         {
             RaycastHit hit;
+
             if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange))
             {
                 if(hit.transform.gameObject.tag == "EnemigoAtormentador")
@@ -91,17 +93,30 @@ public class Linterna : MonoBehaviour
         {
             luz.enabled = !luz.enabled;
             encendida = !encendida;
-
-
         }
         else if (encendida && bateria>10 && Input.GetKeyDown(KeyCode.Mouse1))
         {
             activarAnimator();
             anim.SetTrigger("flash");
+            detectarFlash();
             sound.Play();
             bateria -= 10;
             Invoke("activarAnimator", .35f);
         }
+    }
+
+    void detectarFlash()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange*3, 1))
+        {
+            if (hit.transform.gameObject.tag == "EnemigoMortal")
+            {
+                hit.transform.gameObject.GetComponent<EnemigoMortal>().ImpactoFlash();
+            }
+        }
+
     }
 
     void activarAnimator()
@@ -111,11 +126,9 @@ public class Linterna : MonoBehaviour
 
     void cargar()
     {
-        bateria += 50f;
-
-        if(bateria>100)
+        if(!encendida && bateria<100)
         {
-            bateria = 100;
+            bateria += Time.deltaTime * 2;
         }
     }
 

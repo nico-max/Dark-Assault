@@ -14,6 +14,7 @@ public class Jugador : MonoBehaviour
 
     public float fuerzaSalto;
 
+    [SerializeField]
     private Vector3 spawnpoint;
     private Vector3 posInicial;
     [SerializeField]
