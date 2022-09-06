@@ -69,6 +69,8 @@ public class Linterna : MonoBehaviour
         ControlLuzLinterna();
 
         deteccionLuzLinterna();
+
+        Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * lightRange, Color.green);
     }
 
     void deteccionLuzLinterna()
@@ -109,7 +111,7 @@ public class Linterna : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange*3, 1))
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange, 1))
         {
             if (hit.transform.gameObject.tag == "EnemigoMortal")
             {

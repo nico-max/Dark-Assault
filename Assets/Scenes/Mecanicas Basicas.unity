@@ -39062,7 +39062,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34748
+  m_Name: pb_Mesh41612
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -39529,6 +39529,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e6116f64d96ac46ab412aac09f8caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1729763680 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3293606839504112089, guid: 3da725f0eaaa62642802189ecaf0d0a7, type: 3}
+  m_PrefabInstance: {fileID: 8769279592211690666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1729763684
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729763680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.80438465
+  m_Center: {x: -0.03498263, y: 0.34266895, z: 0.050572857}
 --- !u!1 &1732843035
 GameObject:
   m_ObjectHideFlags: 0
@@ -39700,7 +39718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9095024047357089594, guid: 3da725f0eaaa62642802189ecaf0d0a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1029
+      value: 454.3
       objectReference: {fileID: 0}
     - target: {fileID: 9095024047357089594, guid: 3da725f0eaaa62642802189ecaf0d0a7, type: 3}
       propertyPath: m_LocalPosition.y
