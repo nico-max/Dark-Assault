@@ -12,11 +12,14 @@ TagManager:
   - EntradaCheckpoint
   - EnemigoMortal
   - EnemigoAtormentador
+  - Linterna
+  - EnemySpawnpoints_nivel
+  - GlobalPostProcessing
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post processing
   - Water
   - UI
   - 

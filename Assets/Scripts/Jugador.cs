@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Jugador : MonoBehaviour
 {
@@ -8,6 +9,12 @@ public class Jugador : MonoBehaviour
     public float velocidadMovimiento = 30f;
     public float rangoRayo = 100f;
     public float sensibilidadMouse = 140f;
+    float SENSIBILIDAD_DEFAULT = 140f;
+    float SENSIBILIDAD_STUN = 50f;
+
+    float counterStun;
+    float TIEMPO_STUN = 1f;
+    bool stunned;
 
     public float xRotacion = 0f;
     public float yRotacion = 0f;
@@ -17,13 +24,22 @@ public class Jugador : MonoBehaviour
     [SerializeField]
     private Vector3 spawnpoint;
     private Vector3 posInicial;
+
+    // Postprocessing features
     [SerializeField]
+    private PostProcessVolume _volume;
+    private Vignette _vignette;
+
     private Transform enemigoMortal;
 
     private Rigidbody rig;
     private Transform cam;
+
+    // sonidos
     private AudioSource heart;
     public AudioSource foots;
+
+    private Linterna _linterna;
 
     public bool insideLight;
     public bool tocandoPiso;
@@ -42,6 +58,11 @@ public class Jugador : MonoBehaviour
         heart = GetComponent<AudioSource>();
 
         enemigoMortal = GameObject.FindGameObjectWithTag("EnemigoMortal").transform;
+        _linterna = GetComponentInChildren<Linterna>();
+        //_volume = GameObject.FindGameObjectWithTag("GlobalPostProcessing").GetComponent<PostProcessVolume>();
+
+        _volume.profile.TryGetSettings(out _vignette);
+        configDefault();
     }
 
     void Update()
@@ -54,6 +75,7 @@ public class Jugador : MonoBehaviour
         }
         
         comprobarAltura();
+        deteccionStun();
 
         Jump();
         Latidos();
@@ -66,7 +88,10 @@ public class Jugador : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if(!stunned)
+        {
+            Move();
+        }
     }
 
     void Move()
@@ -153,8 +178,9 @@ public class Jugador : MonoBehaviour
         }
         else if(collision.gameObject.tag == "EnemigoAtormentador")
         {
-            insideLight = false;
-            GameManager._instance.reiniciarNivel();
+            Destroy(collision.gameObject);
+            reiniciarCounterStun();
+            configStun();
         }
     }
 
@@ -179,9 +205,10 @@ public class Jugador : MonoBehaviour
     }
 
 
-    void Respawn()
+    public void Respawn()
     {
         transform.position = spawnpoint;
+        _linterna.recarcar();
     }
 
     void Latidos()
@@ -236,4 +263,39 @@ public class Jugador : MonoBehaviour
         
     }
 
+    public void setSpawnpoint(Vector3 newSpawn)
+    {
+        this.spawnpoint = newSpawn;
+    }
+
+    void reiniciarCounterStun()
+    {
+        counterStun = TIEMPO_STUN;
+    }
+
+    void deteccionStun()
+    {
+        if(counterStun > 0)
+        {
+            counterStun -= Time.deltaTime;
+        }
+        else
+        {
+            configDefault();
+        }
+    }
+
+    void configStun()
+    {
+        sensibilidadMouse = SENSIBILIDAD_STUN;
+        _vignette.active = true;
+        stunned = true;
+    }
+
+    void configDefault()
+    {
+        sensibilidadMouse = SENSIBILIDAD_DEFAULT;
+        _vignette.active = false;
+        stunned = false;
+    }
 }

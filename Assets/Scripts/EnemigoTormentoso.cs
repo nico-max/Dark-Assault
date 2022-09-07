@@ -21,6 +21,8 @@ public class EnemigoTormentoso : MonoBehaviour
         counterVida = 0;
         vidaMaxima = 1.3f;
         enemySpeed = 12;
+
+        posJugador = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
     }
 
     void Update()
@@ -53,8 +55,7 @@ public class EnemigoTormentoso : MonoBehaviour
     }
     void LookAtPlayerQuat()
     {
-        Quaternion rot = Quaternion.LookRotation(posJugador.position - transform.position);
-        transform.rotation = rot;
+        transform.LookAt(posJugador);
 
     }
 

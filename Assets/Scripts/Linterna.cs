@@ -70,7 +70,7 @@ public class Linterna : MonoBehaviour
 
         deteccionLuzLinterna();
 
-        Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * lightRange, Color.green);
+        Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * (lightRange/4), Color.green);
     }
 
     void deteccionLuzLinterna()
@@ -79,7 +79,7 @@ public class Linterna : MonoBehaviour
         {
             RaycastHit hit;
 
-            if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange))
+            if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange/3, 1))
             {
                 if(hit.transform.gameObject.tag == "EnemigoAtormentador")
                 {
@@ -111,11 +111,15 @@ public class Linterna : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange, 1))
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange/2, 1))
         {
             if (hit.transform.gameObject.tag == "EnemigoMortal")
             {
                 hit.transform.gameObject.GetComponent<EnemigoMortal>().ImpactoFlash();
+            }
+            else if (hit.transform.gameObject.tag == "EnemigoAtormentador")
+            {
+                Destroy(hit.transform.gameObject);
             }
         }
 
@@ -203,5 +207,15 @@ public class Linterna : MonoBehaviour
     void reiniciarCounter()
     {
         counter = .1f;
+    }
+
+    public void setBattery(float _bat)
+    {
+        this.bateria = _bat;
+    }
+
+    public void recarcar()
+    {
+        this.bateria = 100;
     }
 }

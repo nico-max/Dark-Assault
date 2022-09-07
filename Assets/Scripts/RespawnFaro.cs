@@ -27,6 +27,7 @@ public class RespawnFaro : MonoBehaviour
         {
             faroPadre.iniciarNivel();
             iniciado = true;
+            SpawnManager._instance.iniciarNivel();
         }
     }
 

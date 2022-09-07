@@ -25,10 +25,11 @@ public class DesactivarNivel : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             GetComponent<BoxCollider>().isTrigger = false;
-
+            SpawnManager._instance.detenerNivel();
+            SpawnManager._instance.destroyTormentosos();
             GameManager._instance.superoNivel();
         }
 

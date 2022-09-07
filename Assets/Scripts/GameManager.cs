@@ -31,8 +31,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        cargarEscena();
+    }
+
+    void cargarEscena()
+    {
         level = 0;
-        //_instance.faros = new GameObject[3];
+        _instance.faros = GameObject.FindGameObjectsWithTag("FaroLuz");
         faroActivo = faros[level];
 
         posJugador = GameObject.FindGameObjectWithTag("Player").transform;
@@ -43,7 +48,6 @@ public class GameManager : MonoBehaviour
 
         posEnemigoMortal.gameObject.SetActive(false);
     }
-
 
     public void superoNivel()
     {
@@ -58,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             activarMortal();
         }
+        SpawnManager._instance.cargarNivel();
     }
 
     public void activarMortal()
@@ -67,7 +72,8 @@ public class GameManager : MonoBehaviour
 
     public void reiniciarNivel()
     {
-        posJugador.position = posInicialJugador;
+        posJugador.gameObject.GetComponent<Jugador>().setSpawnpoint(posInicialJugador);
+        posJugador.gameObject.GetComponent<Jugador>().Respawn();
         posEnemigoMortal.position = posInicialEnemigoMortal;
 
         foreach(GameObject faro in faros)
@@ -82,5 +88,10 @@ public class GameManager : MonoBehaviour
 
         posEnemigoMortal.gameObject.SetActive(false);
 
+    }
+
+    public int getLevel()
+    {
+        return this.level;
     }
 }
