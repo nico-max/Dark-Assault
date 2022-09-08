@@ -32,7 +32,7 @@ public class EnemigoTormentoso : MonoBehaviour
 
         if(counterVida >= vidaMaxima)
         {
-            Destroy(this.gameObject);
+            SpawnManager._instance.TormentosoDestruido(this.gameObject);
         }
     }
 

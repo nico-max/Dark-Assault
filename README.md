@@ -1,7 +1,6 @@
 # Dark Assault
 
-## Members:
-- Benjamin Meza
+## Game Director:
 - Boris León
 
 

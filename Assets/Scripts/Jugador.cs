@@ -209,6 +209,9 @@ public class Jugador : MonoBehaviour
     {
         transform.position = spawnpoint;
         _linterna.recarcar();
+        SpawnManager._instance.destroyTormentosos();
+        SpawnManager._instance.detenerNivel();
+        //GameManager._instance.reiniciarMortal();
     }
 
     void Latidos()
@@ -290,6 +293,7 @@ public class Jugador : MonoBehaviour
         sensibilidadMouse = SENSIBILIDAD_STUN;
         _vignette.active = true;
         stunned = true;
+        rig.velocity = Vector3.zero;
     }
 
     void configDefault()

@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
 
+    [SerializeField]
     private int level;
 
     public GameObject[] faros;
@@ -58,16 +59,17 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Faro activo a encender: " + faroActivo.name);
         faroActivo.GetComponent<Faro>().Encender();
 
-        if(level==2)
-        {
-            activarMortal();
-        }
         SpawnManager._instance.cargarNivel();
     }
 
     public void activarMortal()
     {
         posEnemigoMortal.gameObject.SetActive(true);
+    }
+
+    public void reiniciarMortal()
+    {
+        posEnemigoMortal.position = posInicialEnemigoMortal;
     }
 
     public void reiniciarNivel()

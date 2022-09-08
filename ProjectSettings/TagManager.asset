@@ -15,6 +15,7 @@ TagManager:
   - Linterna
   - EnemySpawnpoints_nivel
   - GlobalPostProcessing
+  - MortalSpawnpoint
   layers:
   - Default
   - TransparentFX

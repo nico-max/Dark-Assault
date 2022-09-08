@@ -119,7 +119,7 @@ public class Linterna : MonoBehaviour
             }
             else if (hit.transform.gameObject.tag == "EnemigoAtormentador")
             {
-                Destroy(hit.transform.gameObject);
+                SpawnManager._instance.TormentosoDestruido(hit.transform.gameObject);
             }
         }
 

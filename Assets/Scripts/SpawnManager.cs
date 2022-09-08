@@ -10,12 +10,14 @@ public class SpawnManager : MonoBehaviour
     GameObject group_spawnPoints;
     [SerializeField]
     List<Vector3> spawnPositions;
+    List<GameObject> spawnedMonsters;
 
     public GameObject _prefabMonter1;
     public GameObject _prefabMonter2;
 
     float spawnCounter;
 
+    [SerializeField]
     bool spawnear;
 
     void Awake()
@@ -34,16 +36,20 @@ public class SpawnManager : MonoBehaviour
     {
         spawnear = false;
         cargarNivel();
+        spawnedMonsters = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
         enemyLevelSpawn();
+        Debug.Log(spawnedMonsters.Count);
     }
 
     public void cargarNivel()
     {
+        // Carga de puntos de spawn para los tormentosos
+
         int level = GameManager._instance.getLevel();
         GameObject[] groups_spawnpoints = GameObject.FindGameObjectsWithTag("EnemySpawnpoints_nivel");
 
@@ -51,9 +57,31 @@ public class SpawnManager : MonoBehaviour
 
         int childs = group_spawnPoints.transform.childCount;
 
-        for(int i = 0; i < childs; i++)
+        if(childs > 0)
         {
-            spawnPositions.Add(group_spawnPoints.transform.GetChild(i).position);
+            for (int i = 0; i < childs; i++)
+            {
+                spawnPositions.Add(group_spawnPoints.transform.GetChild(i).position);
+            }
+        }
+        else
+        {
+            Debug.Log("Se detuvo el spawn de monstruos");
+            detenerNivel();
+            spawnPositions = new List<Vector3>();
+        }
+
+        // Carga de spawn del mortal
+
+        GameObject[] mortal_spawnpoints = GameObject.FindGameObjectsWithTag("MortalSpawnpoint");
+
+        GameObject mortalSpawnpoint = mortal_spawnpoints[level];
+
+        int child = mortalSpawnpoint.transform.childCount;
+
+        if(child > 0)
+        {
+            GameManager._instance.activarMortal();
         }
 
     }
@@ -70,7 +98,7 @@ public class SpawnManager : MonoBehaviour
 
     void enemyLevelSpawn()
     {
-        if(spawnear)
+        if(spawnear && spawnedMonsters.Count <= 20)
         {
             if (spawnCounter > 0)
             {
@@ -86,7 +114,7 @@ public class SpawnManager : MonoBehaviour
 
                     if (probability < 25)
                     {
-                        Instantiate(monster, position, Quaternion.identity);
+                        spawnedMonsters.Add(Instantiate(monster, position, Quaternion.identity));
                     }
                 }
                 spawnCounter = 5;
@@ -96,9 +124,16 @@ public class SpawnManager : MonoBehaviour
 
     public void destroyTormentosos()
     {
-        foreach(GameObject tormentoso in GameObject.FindGameObjectsWithTag("EnemigoAtormentador"))
+        spawnedMonsters.Clear();
+        foreach (GameObject tormentoso in GameObject.FindGameObjectsWithTag("EnemigoAtormentador"))
         {
             Destroy(tormentoso);
         }
+    }
+
+    public void TormentosoDestruido(GameObject destroyed)
+    {
+        spawnedMonsters.Remove(destroyed);
+        Destroy(destroyed);
     }
 }
