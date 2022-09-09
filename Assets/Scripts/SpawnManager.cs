@@ -44,7 +44,6 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         enemyLevelSpawn();
-        Debug.Log(spawnedMonsters.Count);
     }
 
     public void cargarNivel()
@@ -58,8 +57,6 @@ public class SpawnManager : MonoBehaviour
 
         GameObject[] groups_spawnpoints = GameObject.FindGameObjectsWithTag("EnemySpawnpoints_nivel");
 
-        Debug.Log("grupos de spawnpoints de enemigos: " + groups_spawnpoints.Length);
-        Debug.Log("Nivel actual: "+level);
 
         group_spawnPoints = groups_spawnpoints[level];
 
@@ -87,7 +84,6 @@ public class SpawnManager : MonoBehaviour
 
         int child = mortalSpawnpoint.transform.childCount;
 
-        Debug.Log("canitdad de hijos para punto de spawn actual: " + child);
 
         if(child > 0)
         {
@@ -116,7 +112,6 @@ public class SpawnManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Entro a spawnear");
                 foreach (Vector3 position in spawnPositions)
                 {
                     int probability = Random.Range(0, 100);

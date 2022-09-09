@@ -165,7 +165,6 @@ public class Jugador : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision: "+collision.gameObject.tag);
         if(collision.gameObject.tag=="Checkpoint")
         {
             Transform col = collision.transform;
@@ -191,7 +190,6 @@ public class Jugador : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("trigger: "+other.gameObject.tag);
         if (other.gameObject.tag == "HaloLuz")
         {
             insideLight = true;
@@ -315,7 +313,6 @@ public class Jugador : MonoBehaviour
 
         if(distancia > 100)
         {
-            Debug.Log("Detener el sonido");
             ambient.Pause();
         }
     }

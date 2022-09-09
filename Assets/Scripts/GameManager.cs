@@ -51,22 +51,17 @@ public class GameManager : MonoBehaviour
 
         if(completoEscena)
         {
-            Debug.Log("Entro a cargar la escena en la escena: " + escena);
             cargarEscena();
-            Debug.Log("Va a cargar el nivel en el spawnmanager con nivel en: " + level);
             SpawnManager._instance.cargarNivel();
             completoEscena = false;
         }
 
         levelSuccessCheck();
 
-        Debug.Log("Escena: "+escena);
-        Debug.Log("Nivel: " + level);
     }
 
     void cargarEscena()
     {
-        Debug.Log("Cargo una nueva escena");
         pauseActive = false;
 
         level = 0;
@@ -85,10 +80,8 @@ public class GameManager : MonoBehaviour
     public void superoNivel()
     {
         level++;
-        //Debug.Log("Faro activo a apagar: " + faroActivo.name);
         faroActivo.GetComponent<Faro>().Apagar();
         faroActivo = faros[level];
-        //Debug.Log("Faro activo a encender: " + faroActivo.name);
         faroActivo.GetComponent<Faro>().Encender();
 
         SpawnManager._instance.cargarNivel();
@@ -177,19 +170,16 @@ public class GameManager : MonoBehaviour
     {
         if(posJugador.position.y <= -10)
         {
-            Debug.Log("Jugador termino la escena");
             level = 0;
             escena++;
             completoEscena = true;
 
-            Debug.Log("Escena actual: " + escena);
             if(escena < 3)
             {
                 SceneManager.LoadScene(escena);
             }
             else if(escena >= 3)
             {
-                Debug.Log("GANOOOOOOOO");
                 posJugador.position.Set(posJugador.position.x, 20, posJugador.position.z);
                 Gano();
             }
