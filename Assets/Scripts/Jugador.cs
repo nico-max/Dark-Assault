@@ -38,13 +38,14 @@ public class Jugador : MonoBehaviour
     // sonidos
     private AudioSource heart;
     public AudioSource foots;
+    public AudioSource ambient;
 
     private Linterna _linterna;
 
     public bool insideLight;
     public bool tocandoPiso;
 
-    void Start()
+    void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -79,8 +80,9 @@ public class Jugador : MonoBehaviour
 
         Jump();
         Latidos();
+        deteccionSonidoDistancia();
 
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             GameManager._instance.activarMortal();
         }
@@ -163,6 +165,7 @@ public class Jugador : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collision: "+collision.gameObject.tag);
         if(collision.gameObject.tag=="Checkpoint")
         {
             Transform col = collision.transform;
@@ -172,9 +175,11 @@ public class Jugador : MonoBehaviour
 
         if (collision.gameObject.tag == "EnemigoMortal")
         {
+            UIManager._instance.setMurio();
             insideLight = false;
-            spawnpoint = posInicial;
-            GameManager._instance.reiniciarNivel();
+            Time.timeScale = 0;
+            // spawnpoint = posInicial;
+            // GameManager._instance.reiniciarNivel();
         }
         else if(collision.gameObject.tag == "EnemigoAtormentador")
         {
@@ -186,6 +191,7 @@ public class Jugador : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("trigger: "+other.gameObject.tag);
         if (other.gameObject.tag == "HaloLuz")
         {
             insideLight = true;
@@ -301,5 +307,16 @@ public class Jugador : MonoBehaviour
         sensibilidadMouse = SENSIBILIDAD_DEFAULT;
         _vignette.active = false;
         stunned = false;
+    }
+
+    void deteccionSonidoDistancia()
+    {
+        float distancia = (enemigoMortal.position - transform.position).magnitude;
+
+        if(distancia > 100)
+        {
+            Debug.Log("Detener el sonido");
+            ambient.Pause();
+        }
     }
 }

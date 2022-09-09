@@ -69,6 +69,7 @@ public class Linterna : MonoBehaviour
         ControlLuzLinterna();
 
         deteccionLuzLinterna();
+        UIManager._instance.actualizarBateriaLinterna(bateria);
 
         Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * (lightRange/4), Color.green);
     }
@@ -79,11 +80,15 @@ public class Linterna : MonoBehaviour
         {
             RaycastHit hit;
 
-            if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange/3, 1))
+            if(Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, lightRange/2, 1))
             {
                 if(hit.transform.gameObject.tag == "EnemigoAtormentador")
                 {
                     hit.transform.gameObject.GetComponent<EnemigoTormentoso>().Impacto();
+                }
+                else if (hit.transform.gameObject.tag == "EnemigoMortal")
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>().ambient.UnPause();
                 }
             }
         }
@@ -91,12 +96,12 @@ public class Linterna : MonoBehaviour
 
     void ControlLuzLinterna()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !GameManager._instance.IsPauseActive())
         {
             luz.enabled = !luz.enabled;
             encendida = !encendida;
         }
-        else if (encendida && bateria>10 && Input.GetKeyDown(KeyCode.Mouse1))
+        else if (encendida && bateria>10 && Input.GetKeyDown(KeyCode.Mouse1) && !GameManager._instance.IsPauseActive())
         {
             activarAnimator();
             anim.SetTrigger("flash");

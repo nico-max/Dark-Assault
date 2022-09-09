@@ -15,10 +15,12 @@ public class SpawnManager : MonoBehaviour
     public GameObject _prefabMonter1;
     public GameObject _prefabMonter2;
 
+    [SerializeField]
     float spawnCounter;
 
     [SerializeField]
     bool spawnear;
+
 
     void Awake()
     {
@@ -30,13 +32,12 @@ public class SpawnManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
-    void Start()
+    private void Start()
     {
-        spawnear = false;
         cargarNivel();
-        spawnedMonsters = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -50,10 +51,19 @@ public class SpawnManager : MonoBehaviour
     {
         // Carga de puntos de spawn para los tormentosos
 
+        spawnear = false;
+        spawnedMonsters = new List<GameObject>();
+
         int level = GameManager._instance.getLevel();
+
         GameObject[] groups_spawnpoints = GameObject.FindGameObjectsWithTag("EnemySpawnpoints_nivel");
 
+        Debug.Log("grupos de spawnpoints de enemigos: " + groups_spawnpoints.Length);
+        Debug.Log("Nivel actual: "+level);
+
         group_spawnPoints = groups_spawnpoints[level];
+
+        spawnPositions = new List<Vector3>();
 
         int childs = group_spawnPoints.transform.childCount;
 
@@ -66,9 +76,7 @@ public class SpawnManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Se detuvo el spawn de monstruos");
             detenerNivel();
-            spawnPositions = new List<Vector3>();
         }
 
         // Carga de spawn del mortal
@@ -78,6 +86,8 @@ public class SpawnManager : MonoBehaviour
         GameObject mortalSpawnpoint = mortal_spawnpoints[level];
 
         int child = mortalSpawnpoint.transform.childCount;
+
+        Debug.Log("canitdad de hijos para punto de spawn actual: " + child);
 
         if(child > 0)
         {
@@ -106,6 +116,7 @@ public class SpawnManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("Entro a spawnear");
                 foreach (Vector3 position in spawnPositions)
                 {
                     int probability = Random.Range(0, 100);

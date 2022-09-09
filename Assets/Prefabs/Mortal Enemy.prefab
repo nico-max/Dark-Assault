@@ -680,6 +680,7 @@ GameObject:
   - component: {fileID: 2601070904088604441}
   - component: {fileID: 2389853281330126495}
   - component: {fileID: 6749314087048584116}
+  - component: {fileID: 1729763684}
   m_Layer: 0
   m_Name: Ch30
   m_TagString: EnemigoMortal
@@ -822,6 +823,19 @@ CapsuleCollider:
   m_Height: 1.49
   m_Direction: 2
   m_Center: {x: -0.034975, y: 0.34266895, z: 0.05057095}
+--- !u!135 &1729763684
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293606839504112089}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.80438465
+  m_Center: {x: -0.03498263, y: 0.34266895, z: 0.050572857}
 --- !u!1 &3398305180062700160
 GameObject:
   m_ObjectHideFlags: 0

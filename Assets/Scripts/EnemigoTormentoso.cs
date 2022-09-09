@@ -13,12 +13,14 @@ public class EnemigoTormentoso : MonoBehaviour
 
     public float counterVida;
     public float vidaMaxima;
+    public float counterLongevidad;
 
 
     void Start()
     {
         anim = GetComponent<Animator>();
         counterVida = 0;
+        counterLongevidad = 20f;
         vidaMaxima = 1.3f;
         enemySpeed = 12;
 
@@ -29,8 +31,9 @@ public class EnemigoTormentoso : MonoBehaviour
     {
         ChequearDistancia();
         LookAtPlayerQuat();
+        updateLongevidad();
 
-        if(counterVida >= vidaMaxima)
+        if (counterVida >= vidaMaxima)
         {
             SpawnManager._instance.TormentosoDestruido(this.gameObject);
         }
@@ -57,6 +60,18 @@ public class EnemigoTormentoso : MonoBehaviour
     {
         transform.LookAt(posJugador);
 
+    }
+
+    void updateLongevidad()
+    {
+        if(counterLongevidad > 0)
+        {
+            counterLongevidad -= Time.deltaTime;
+        }
+        else
+        {
+            SpawnManager._instance.TormentosoDestruido(this.gameObject);
+        }
     }
 
     public void Impacto()
